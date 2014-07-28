@@ -29,7 +29,6 @@ function Game(socket1,socket2,current,roomNum,io) {
 
 		var currSocket = curr_socket;
 		var changed = false;
-		var dispImg;
 		n = id.charAt('1');
 
 		var msg1 = "Its your turn";
@@ -41,7 +40,6 @@ function Game(socket1,socket2,current,roomNum,io) {
 	        {
 	        	data[n] = 'x';
 	            changed = true;
-	            dispImg = "url(http://www.my-favorite-coloring.net/Images/Large/Numbers-and-shapes-Alphabet-Letter-x-126719.png)";
 	        }
 	        else
 	        {
@@ -53,7 +51,6 @@ function Game(socket1,socket2,current,roomNum,io) {
 	        {
 	        	data[n] = 'o';
 	            changed = true;
-	            dispImg = "url(http://lettergenerator.net/alphabetletters/cool/printable-letter-thecool-o.jpg)";
 	        }
 	        else
 	        {
@@ -65,7 +62,7 @@ function Game(socket1,socket2,current,roomNum,io) {
 		}
 		if(changed == true)
 	    {
-	    	io.to(roomNum).emit('display-image',id,dispImg);
+	    	io.to(roomNum).emit('display-image',id,data[n]);
 	        filled[n] = true;
 	        turn++;
 	        no_of_filled++;

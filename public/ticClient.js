@@ -60,11 +60,15 @@ var socket = io();
       socket.emit('myClick',this.id);
     }
 
-    socket.on('display-image',function(id,dispImg) {
-        element(id).style.backgroundSize = "80px 80px";
-        element(id).style.backgroundRepeat = "no-repeat";
-        element(id).style.backgroundPosition = "center";
-        element(id).style.backgroundImage = dispImg;
+    socket.on('display-image',function(id,sym) {
+        if(sym == 'x')
+        {
+            element(id).setAttribute('class','x');
+        }
+        else
+        {
+            element(id).setAttribute('class','o');
+        }
      });
 
     socket.on('warning-msg',function(msg) {
