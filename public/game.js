@@ -1,4 +1,4 @@
-function Game(socket1,socket2,current,roomNum,io) {
+function Game(socket1,socket2,current,rum,io_obj) {
 
 	var filled = new Array();
 	var winCombo = [[0,1,2],[0,3,6],[0,4,8],[1,4,7],[2,5,8],[2,4,6],[3,4,5],[6,7,8]];
@@ -7,6 +7,8 @@ function Game(socket1,socket2,current,roomNum,io) {
 	var no_of_filled = 0;
 	var sockets = new Array();
 	var n;
+	var roomNum = rum;
+	var io = io_obj;
 	sockets.push(socket1,socket2);
 
 	this.initialize = function() {
@@ -80,13 +82,22 @@ function Game(socket1,socket2,current,roomNum,io) {
 
 	this.checkWin = function (sym)
 	{
+		var flag;
+		var _obj = this;
 	    for(var i in winCombo)
 	    {
-	        if(data[winCombo[i][0]] == sym && data[winCombo[i][1]] == sym && data[winCombo[i][2]] == sym)
-	        {
-	            var player = sym == 'x' ? "1" : "2";
-	            this.playAgain(player);
-	        }
+	    	flag = true;
+	    	for(var j = 0; j < winCombo[i].length; j++)
+	    	{
+	    		if(!(data[winCombo[i][j]] == sym))
+	    		{
+	    			flag = false;
+	    		}
+	    	}
+	    	if(flag == true) {
+		    	var player = sym == 'x' ? "1" : "2";
+			    _obj.playAgain(player);
+		    }
 	    }
 	};
 

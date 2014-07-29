@@ -14,15 +14,15 @@ td {
 }
 
 td {
-	background-size: 80px 80px;
-	background-repeat: no-repeat;
-	background-position: center;
+    background-size: 80px 80px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 td.o {
-	background-image: url('http://lettergenerator.net/alphabetletters/cool/printable-letter-thecool-o.jpg');
+    background-image: url('http://lettergenerator.net/alphabetletters/cool/printable-letter-thecool-o.jpg');
 }
 
 td.x {
-	background-image: url('http://www.my-favorite-coloring.net/Images/Large/Numbers-and-shapes-Alphabet-Letter-x-126719.png');
+    background-image: url('http://www.my-favorite-coloring.net/Images/Large/Numbers-and-shapes-Alphabet-Letter-x-126719.png');
 }

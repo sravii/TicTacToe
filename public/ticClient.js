@@ -56,8 +56,8 @@ var socket = io();
     });
 
     function clicked()
-    {
-      socket.emit('myClick',this.id);
+    {   
+        socket.emit('myClick',this.id);
     }
 
     socket.on('display-image',function(id,sym) {
@@ -81,18 +81,23 @@ var socket = io();
 
     socket.on('game-over',function(msg) {
         element('display_msg').innerHTML = msg;
-        var y = confirm("Game over....Play again ?");
-        if(y == true)
-        {
-            location.reload();
-        }
+        playagain();
     });
     
     socket.on('play-again',function(player) {
         element('display_msg').innerHTML = "PLAYER " + player + " WON !!!";
-        var y = confirm("Player "+player+" won....Play again ?");
-        if(y == true)
-        {
-            location.reload();
-        }
+        playagain();
     });
+
+    function playagain() {
+        var btn = document.createElement("BUTTON");
+        var t = document.createTextNode("PLAY AGAIN");
+        btn.appendChild(t);
+        btn.setAttribute('id','restart_btn');
+        element('restart_msg').appendChild(btn);
+        element('restart_btn').addEventListener('click',restart);
+    }
+
+    function restart() {
+        location.reload();
+    }
