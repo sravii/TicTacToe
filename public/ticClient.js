@@ -1,6 +1,16 @@
 var socket = io();
 
     var playerNum;
+    var currentTurn = 1;
+
+    var MSGS = {
+        turn: "It's your turn now",
+        wait: "Wait for your turn",
+        occupied: "Place occupied..Try a different place",
+        start1: "Other player has joined..You can start playing now",
+        start2: "You can start playing now",
+        gameover: "GAME OVER !!!"
+    }
 
     function byName(name)
     {
@@ -47,17 +57,33 @@ var socket = io();
     socket.on('game-started', function() {
         if(playerNum == 1)
         {
-            element('display_msg').innerHTML = "Other player has joined..You can start playing now"; 
+            element('display_msg').innerHTML = MSGS.start1; 
         }
         else
         {
-            element('display_msg').innerHTML = "You can now start playing";
+            element('display_msg').innerHTML = MSGS.start2;
         }
     });
 
     function clicked()
     {   
-        socket.emit('myClick',this.id);
+
+        if(playerNum == currentTurn)
+        {
+            if(!(element(this.id).getAttribute('class')))
+            {
+                socket.emit('myClick',this.id);
+                element('display_msg').innerHTML = "";
+            }
+            else
+            {
+                element('display_msg').innerHTML = MSGS.occupied;
+            }
+        }
+        else
+        {
+            element('display_msg').innerHTML = MSGS.wait;
+        }
     }
 
     socket.on('display-image',function(id,sym) {
@@ -69,18 +95,19 @@ var socket = io();
         {
             element(id).setAttribute('class','o');
         }
+        currentTurn = currentTurn == 1 ? 2 : 1;
      });
 
-    socket.on('warning-msg',function(msg) {
-        element('display_msg').innerHTML = msg;
+    socket.on('current-turn',function() {
+        element('display_msg').innerHTML = MSGS.turn;
     });
 
     socket.on('clear-msg', function() {
         element('display_msg').innerHTML = "";
     });
 
-    socket.on('game-over',function(msg) {
-        element('display_msg').innerHTML = msg;
+    socket.on('game-over',function() {
+        element('display_msg').innerHTML = MSGS.gameover;
         playagain();
     });
     
@@ -94,7 +121,7 @@ var socket = io();
         var t = document.createTextNode("PLAY AGAIN");
         btn.appendChild(t);
         btn.setAttribute('id','restart_btn');
-        element('restart_msg').appendChild(btn);
+        element('display_msg').appendChild(btn);
         element('restart_btn').addEventListener('click',restart);
     }
 
