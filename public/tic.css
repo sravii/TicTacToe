@@ -11,9 +11,6 @@ td {
     height: 100px;
     border: 1px solid black;
     text-align: center;
-}
-
-td {
     background-size: 80px 80px;
     background-repeat: no-repeat;
     background-position: center;
